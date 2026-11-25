@@ -1,6 +1,6 @@
 # Session 1 
-### 11-24-2026 4:55 PM
 
+### 11-24-2026 4:55 PM
 Before I start session 1, I would like to give my thoughts on the project.
 The project uses a B-tree to store data similarly to a database.
 There are keys and values associated to each entry in the B-tree.
@@ -42,3 +42,23 @@ Lastly, I tested on an invalid command which also returned the expected error.
 
 Next session, I want to create the structure for the B-Tree and implement the search command.
 I expect coding the B-Tree will be the most difficult part due to its multikey node structure and balancing.
+
+# Session 2
+
+### 11-25-2026 2:31 PM
+This session I'm planning on implementing the actual B-Tree structure itself.
+Each node is stored in a block.
+Each block stores a block id, the parent's block id, the current number of keys, 19 keys, 19 values, and 20 pointers to children.
+8 byte big endian integers are used to store everything.
+
+I'll implement the search algorithm to start at the root id which I can get from the header.
+It'll read that node and attempt to search for the key in it.
+If the key is not found, the search function will be directed to the child pointer that falls in range of the key.
+
+If the child pointer is 0, that means the child is a leaf.
+If the parent id is 0, that means the node is the root.
+I haven't figured out what I'm going to do for when the search reaches a 0 pointer.
+I imagine this will be the most challenging part.
+
+I also want to implement a read function for the nodes themselves to allow the search algorithm to sift through the nodes easier.
+I figure I might as well add the write algorithm while I'm at it since I will need some sort of way to fill the tree for a test.
