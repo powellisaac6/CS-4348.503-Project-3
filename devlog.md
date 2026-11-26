@@ -1,5 +1,4 @@
 # Session 1 
-
 ### 11-24-2026 4:55 PM
 Before I start session 1, I would like to give my thoughts on the project.
 The project uses a B-tree to store data similarly to a database.
@@ -44,7 +43,6 @@ Next session, I want to create the structure for the B-Tree and implement the se
 I expect coding the B-Tree will be the most difficult part due to its multikey node structure and balancing.
 
 # Session 2
-
 ### 11-25-2026 2:31 PM
 This session I'm planning on implementing the actual B-Tree structure itself.
 Each node is stored in a block.
@@ -62,3 +60,34 @@ I imagine this will be the most challenging part.
 
 I also want to implement a read function for the nodes themselves to allow the search algorithm to sift through the nodes easier.
 I figure I might as well add the write algorithm while I'm at it since I will need some sort of way to fill the tree for a test.
+
+### 11-25-2026 6:52 PM
+I have finished everything for this session.
+The first thing I implemented was the node structure which ended up being easier than I expected.
+The trickiest part for me was understanding how to read and write the node.
+I started by writing the block id, parent id, and number of keys first then used loops to add the keys, values, and child pointers.
+It seemed odd to write all the data to a single variable at first.
+I originally had multiple data variables that I was going to combine at the end of the function.
+I got confused having so many of the same variable so I decided just to concatenate to a single variable.
+The read_node function ended up being tricky because I had to calculate the offset for each element of the node.
+Writing it out on a piece of paper helped me a lot.
+
+I wrote some validation functions such as open_idx and check_key.
+This is to ensure that a correct index file is being opened and an unsigned integer is being used as the search key.
+Several other functions include validation. 
+For instance, search utilizes both open_idx and check_key before it searches the tree.
+All of these are to prevent the user from sending an out of bound command.
+
+Turns out reaching a child pointer of 0 was a simple solution.
+You just stop the search.
+This is because when the search reaches 0, either the tree is empty or you have encountered a leaf.
+Either case means the key hasn't been found.
+
+I wrote a script to test it although it's very awkward since I'm only using write_node instead of insert.
+I basically have to give it a premade tree from scratch.
+I created a 2 level B-Tree then conducted a search for a key in the root, a key in each child, a key not in the tree, an invalid key, an invalid file, and an empty tree.
+The correct keys/values and errors were given so everything works as intended.
+
+Next session, I'm going to start implementing insert.
+I think I'll keep it simple and avoid splitting for now.
+Insertion alone should be enough work for a single session.
